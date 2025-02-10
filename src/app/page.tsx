@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import About from './components/About';
 import Contact from './components/Contact';
 import Education from './components/Education';
@@ -18,6 +19,9 @@ export default function Home() {
       <Services />
       <Education />
       <Contact />
+      <footer className='w-full text-center uppercase bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-indigo-900 transition-colors duration-300 overflow-hidden relative'>
+        Credit by <Link target='_blank' href={'https://v0.dev/'}>v0.dev</Link>
+      </footer>
     </main>
   );
 }
