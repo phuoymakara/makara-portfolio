@@ -108,6 +108,7 @@ export default function Contact() {
                     Name
                   </label>
                   <input
+                    aria-label="name"
                     {...register("name")}
                     type="text"
                     className={`w-full px-4 py-2 rounded-md border ${
@@ -121,6 +122,7 @@ export default function Contact() {
                     Email
                   </label>
                   <input
+                    aria-label="email"
                     {...register("email")}
                     type="email"
                     className={`w-full px-4 py-2 rounded-md border ${
@@ -135,6 +137,7 @@ export default function Contact() {
                   Subject
                 </label>
                 <input
+                    aria-label="subject"
                   {...register("subject")}
                   type="text"
                   className={`w-full px-4 py-2 rounded-md border ${
@@ -148,6 +151,7 @@ export default function Contact() {
                   Message
                 </label>
                 <textarea
+                    aria-label="message"
                   {...register("message")}
                   rows={4}
                   className={`w-full px-4 py-2 rounded-md border ${
