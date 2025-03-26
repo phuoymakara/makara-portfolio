@@ -229,10 +229,10 @@ const formRef = useRef<HTMLFormElement>(null);
                 setTurnstileStatus("required");
                 setError(null);
               }}
-              onVerify={(token) => {
+              onVerify={() => {
                 setTurnstileStatus("success");
                 setError(null);
-                console.log(token)
+                ///console.log(token)
               }}
             />
               </div>
