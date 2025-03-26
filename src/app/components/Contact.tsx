@@ -250,7 +250,7 @@ const formRef = useRef<HTMLFormElement>(null);
                 <button
 
                   type="submit"
-                  disabled={isSubmitting||isLoading}
+                  disabled={isSubmitting||isLoading||turnstileStatus!=='success'}
                   className={`w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center ${
                     isSubmitting ? "opacity-75 cursor-not-allowed" : ""
                   }`}
