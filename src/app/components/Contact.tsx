@@ -98,6 +98,7 @@ const formRef = useRef<HTMLFormElement>(null);
     }
   }
 
+  console.log('STATUS....',isLoading)
   return (
     <section
       id="contact"
