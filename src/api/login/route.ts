@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
 
   const validationResponse = await validateTurnstileToken({
     token,
-    secretKey: process.env.TURNSTILE_SECRET_KEY!,
+    secretKey: '0x4AAAAAABCZHh9dUq996PEyiQ2gQ9rXVxg',
     // Optional: Add an idempotency key to prevent token reuse
     idempotencyKey: v4(),
     sandbox: process.env.NODE_ENV === "development",

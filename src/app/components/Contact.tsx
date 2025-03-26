@@ -213,7 +213,7 @@ const formRef = useRef<HTMLFormElement>(null);
               </div>
               <div>
               <Turnstile
-              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+              siteKey={`0x4AAAAAABCZHo7RK0hYJZNG`}
               retry="auto"
               refreshExpired="auto"
               sandbox={process.env.NODE_ENV === "development"}
