@@ -114,6 +114,7 @@ export default function Hero() {
                   fill
                   className="object-cover rounded-3xl"
                   priority
+                  
                 />
               </div>
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">

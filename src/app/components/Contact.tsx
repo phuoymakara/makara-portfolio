@@ -1,12 +1,14 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { motion } from "framer-motion"
-import { Mail, MapPin, Phone, Send, Loader2 } from "lucide-react"
+import { Mail, MapPin, Phone, Send, Loader2, AlertCircle } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
 import { SendEmail } from "../actions/mail"
+import { Turnstile } from "next-turnstile";
+
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -20,6 +22,12 @@ type FormData = z.infer<typeof formSchema>
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
+  const [turnstileStatus, setTurnstileStatus] = useState<
+  "success" | "error" | "expired" | "required"
+>("required");
+const [error, setError] = useState<string | null>(null);
+const [isLoading, setIsLoading] = useState(false);
+const formRef = useRef<HTMLFormElement>(null);
 
   const {
     register,
@@ -34,6 +42,49 @@ export default function Contact() {
     setIsSubmitting(true)
     try {
       await SendEmail(data);
+
+      //
+      setError(null);
+    setIsLoading(true);
+
+    if (!formRef.current) {
+      setIsLoading(false);
+      return;
+    }
+
+    if (turnstileStatus !== "success") {
+      setError("Please verify you are not a robot");
+      setIsLoading(false);
+      return;
+    }
+
+    const formData = new FormData(formRef.current);
+
+    const token = formData.get("cf-turnstile-response");
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    try {
+      const response = await fetch("/api/login", {
+        method: "POST",
+        body: JSON.stringify({ token, email, password }),
+      });
+
+      if (response.ok) {
+       // router.push("/success");
+       console.log('Turnstile....success')
+      } else {
+        setError("Invalid email or password");
+      }
+    } catch (err) {
+      console.log(err)
+      setError("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+
+      //
+
       //console.log('FORM')
       // Here you would typically send the form data to your backend
       await new Promise((resolve) => setTimeout(resolve, 1000)) // Simulate API call
@@ -160,10 +211,45 @@ export default function Contact() {
                 ></textarea>
                 {errors.message && <p className="mt-1 text-sm text-red-500">{errors.message.message}</p>}
               </div>
+              <div>
+              <Turnstile
+              siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+              retry="auto"
+              refreshExpired="auto"
+              sandbox={process.env.NODE_ENV === "development"}
+              onError={() => {
+                setTurnstileStatus("error");
+                setError("Security check failed. Please try again.");
+              }}
+              onExpire={() => {
+                setTurnstileStatus("expired");
+                setError("Security check expired. Please verify again.");
+              }}
+              onLoad={() => {
+                setTurnstileStatus("required");
+                setError(null);
+              }}
+              onVerify={(token) => {
+                setTurnstileStatus("success");
+                setError(null);
+                console.log(token)
+              }}
+            />
+              </div>
+                {error && (
+                <div
+                  className="flex items-center gap-2 text-red-500 text-sm mb-2"
+                  aria-live="polite"
+                >
+                  <AlertCircle size={16} />
+                  <span>{error}</span>
+                </div>
+              )}
               <div className="mt-6">
                 <button
+
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting||isLoading}
                   className={`w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center ${
                     isSubmitting ? "opacity-75 cursor-not-allowed" : ""
                   }`}
