@@ -8,6 +8,7 @@ import Hero from './components/Hero';
 import Services from './components/Services';
 import Skills from './components/Skills';
 
+export const revalidate = 180;
 export default function Home() {
   return (
     <main className="bg-gray-50 dark:bg-gray-900 min-h-screen">

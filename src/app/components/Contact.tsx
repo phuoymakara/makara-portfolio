@@ -160,6 +160,7 @@ const formRef = useRef<HTMLFormElement>(null);
                     Name
                   </label>
                   <input
+                    id="name"
                     aria-label="name"
                     {...register("name")}
                     type="text"
@@ -174,6 +175,7 @@ const formRef = useRef<HTMLFormElement>(null);
                     Email
                   </label>
                   <input
+                    id="email"
                     aria-label="email"
                     {...register("email")}
                     type="email"
@@ -189,7 +191,8 @@ const formRef = useRef<HTMLFormElement>(null);
                   Subject
                 </label>
                 <input
-                    aria-label="subject"
+                  id="subject"
+                  aria-label="subject"
                   {...register("subject")}
                   type="text"
                   className={`w-full px-4 py-2 rounded-md border ${
@@ -203,7 +206,8 @@ const formRef = useRef<HTMLFormElement>(null);
                   Message
                 </label>
                 <textarea
-                    aria-label="message"
+                  id="message"
+                  aria-label="message"
                   {...register("message")}
                   rows={4}
                   className={`w-full px-4 py-2 rounded-md border ${
@@ -214,6 +218,7 @@ const formRef = useRef<HTMLFormElement>(null);
               </div>
               <div>
               <Turnstile
+              className="dark:bg-black dark:text-white"
               siteKey={`0x4AAAAAABCZHo7RK0hYJZNG`}
               retry="auto"
               refreshExpired="auto"
