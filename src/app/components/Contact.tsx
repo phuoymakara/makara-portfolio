@@ -98,7 +98,6 @@ const formRef = useRef<HTMLFormElement>(null);
     }
   }
 
-  console.log('STATUS....',isLoading)
   return (
     <section
       id="contact"
@@ -162,6 +161,7 @@ const formRef = useRef<HTMLFormElement>(null);
                   <input
                     id="name"
                     aria-label="name"
+                    autoComplete="name"
                     {...register("name")}
                     type="text"
                     className={`w-full px-4 py-2 rounded-md border ${
@@ -176,6 +176,7 @@ const formRef = useRef<HTMLFormElement>(null);
                   </label>
                   <input
                     id="email"
+                    autoComplete="email"
                     aria-label="email"
                     {...register("email")}
                     type="email"
@@ -192,6 +193,7 @@ const formRef = useRef<HTMLFormElement>(null);
                 </label>
                 <input
                   id="subject"
+                  autoComplete="subject"
                   aria-label="subject"
                   {...register("subject")}
                   type="text"
@@ -207,6 +209,7 @@ const formRef = useRef<HTMLFormElement>(null);
                 </label>
                 <textarea
                   id="message"
+                  autoComplete="message"
                   aria-label="message"
                   {...register("message")}
                   rows={4}

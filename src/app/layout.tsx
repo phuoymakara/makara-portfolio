@@ -36,6 +36,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <meta 
+        httpEquiv="Content-Security-Policy"
+        content="script-src 'self' 'unsafe-eval'"
+      />
       <body
         //className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
